@@ -1,0 +1,18 @@
+server:
+  port: 8093
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=clinic
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:init/schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
