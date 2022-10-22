@@ -9,10 +9,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
-  #sql:
-  #  init:
-  #    mode: always
-  #    data-locations: classpath:init/schema.sql
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:init/schema.sql
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none

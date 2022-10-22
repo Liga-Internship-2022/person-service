@@ -2,7 +2,7 @@ create table if not exists medical_card
 (
     id            bigserial not null unique primary key,
     client_status char      not null,
-    med_status    char      not null,
+    med_status    char,
     registry_dt   date      not null,
     comment       text      not null
 );
@@ -18,7 +18,7 @@ create table if not exists contact
 create table if not exists illness
 (
     id              bigserial not null unique primary key,
-    medical_card_id bigint    not null references medical_card (id),
+    medical_card_id bigint    not null references medical_card (id) on delete cascade,
     type_id         bigint    not null,
     heaviness       char      not null,
     appearance_dttm timestamp not null,
@@ -33,15 +33,15 @@ create table if not exists person_data
     birth_dt        date         not null,
     age             smallint     not null,
     sex             char         not null,
-    contact_id      bigint       not null references contact (id),
-    medical_card_id bigint       not null references medical_card (id),
+    contact_id      bigint       not null references contact (id) on delete cascade,
+    medical_card_id bigint       not null references medical_card (id) on delete cascade,
     parent_id       bigint check ( parent_id <> person_data.id ) references person_data (id)
 );
 
 create table if not exists address
 (
     id         bigserial    not null unique primary key,
-    contact_id bigint       not null references contact (id),
+    contact_id bigint       not null references contact (id) on delete cascade,
     country_id bigint       not null,
     city       varchar(255) not null,
     index      integer      not null,

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,9 +40,9 @@ public class Contact {
     private String profileLink;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "contact", cascade = CascadeType.ALL)
     private Set<Address> addresses;
 
-    @OneToOne(mappedBy = "contact")
+    @OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
     private PersonData personData;
 }

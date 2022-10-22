@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class MedicalCard {
     @Column(name = "client_status", nullable = false)
     private String clientStatus;
 
-    @Column(name = "med_status", nullable = false)
+    @Column(name = "med_status")
     private String medStatus;
 
     @Column(name = "registry_dt", nullable = false)
@@ -42,9 +43,9 @@ public class MedicalCard {
     private String comment;
 
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medicalCard")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medicalCard", cascade = CascadeType.ALL)
     private Set<Illness> illnesses;
 
-    @OneToOne(mappedBy = "medicalCard")
+    @OneToOne(mappedBy = "medicalCard", orphanRemoval = true, cascade = CascadeType.ALL)
     private PersonData personData;
 }
