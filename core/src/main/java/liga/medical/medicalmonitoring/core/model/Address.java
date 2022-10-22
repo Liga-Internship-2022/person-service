@@ -41,10 +41,10 @@ public class Address {
     @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "building", nullable = false)
+    @Column(name = "building", nullable = false, length = 32)
     private String building;
 
-    @Column(name = "flat", nullable = false)
+    @Column(name = "flat", nullable = false, length = 32)
     private String flat;
 
     @ToString.Exclude

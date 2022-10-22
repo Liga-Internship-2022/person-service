@@ -30,10 +30,10 @@ public class Contact {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, length = 32)
     private String phoneNumber;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 128)
     private String email;
 
     @Column(name = "profile_link", nullable = false)
