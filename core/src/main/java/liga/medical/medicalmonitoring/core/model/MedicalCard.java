@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,6 +40,7 @@ public class MedicalCard {
     @Column(name = "registry_dt", nullable = false)
     private java.sql.Date registryDt;
 
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "comment", nullable = false)
     private String comment;
 

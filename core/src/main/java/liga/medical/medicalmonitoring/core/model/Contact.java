@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,6 +37,7 @@ public class Contact {
     @Column(name = "email", nullable = false, length = 128)
     private String email;
 
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "profile_link", nullable = false)
     private String profileLink;
 
