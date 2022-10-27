@@ -5,7 +5,7 @@ import liga.medical.medicalmonitoring.dto.MedicalCardRequest;
 import liga.medical.medicalmonitoring.dto.MedicalCardResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.MedicalCard;
-import liga.medical.medicalmonitoring.api.repository.MedicalCardRepository;
+import liga.medical.medicalmonitoring.core.repository.MedicalCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MedicalCardServiceImpl implements MedicalCardService {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private final MedicalCardRepository medicalCardRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public Long create(MedicalCardRequest request) {
@@ -35,9 +35,8 @@ public class MedicalCardServiceImpl implements MedicalCardService {
 
     @Override
     public MedicalCardResponse getById(Long id) {
-        MedicalCard medicalCard = medicalCardRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("medical card not found by id: " + id)
-        );
+        MedicalCard medicalCard = medicalCardRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("medical card not found by id: " + id));
         return modelMapper.map(medicalCard, MedicalCardResponse.class);
     }
 

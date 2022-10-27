@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AddressService {
 
-    Long create(AddressRequest request);
+    Long create(AddressRequest request, Long contactId);
 
     AddressResponse getById(Long id);
 

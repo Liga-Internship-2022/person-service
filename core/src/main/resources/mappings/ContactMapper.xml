@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="liga.medical.medicalmonitoring.api.mapping.ContactMapper">
+<mapper namespace="liga.medical.medicalmonitoring.core.mapping.ContactMapper">
 
-    <insert id="save" parameterType="liga.medical.medicalmonitoring.core.model.Contact">
+    <select id="save" parameterType="liga.medical.medicalmonitoring.core.model.Contact" resultType="long">
         INSERT INTO contact (phone_number, email, profile_link)
-        VALUES (#{phoneNumber}, #{email}, #{profileLink})
-    </insert>
+        VALUES (#{phoneNumber}, #{email}, #{profileLink}) returning id
+    </select>
 
     <select id="findById" resultMap="ContactResponseMap">
         SELECT *

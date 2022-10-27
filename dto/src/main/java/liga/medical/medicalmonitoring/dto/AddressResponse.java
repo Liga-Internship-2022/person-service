@@ -15,4 +15,5 @@ public class AddressResponse {
     private String street;
     private String building;
     private String flat;
+    private Long contactId;
 }

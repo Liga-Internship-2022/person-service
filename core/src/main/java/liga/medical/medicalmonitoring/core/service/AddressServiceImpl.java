@@ -5,10 +5,11 @@ import liga.medical.medicalmonitoring.dto.AddressRequest;
 import liga.medical.medicalmonitoring.dto.AddressResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.Address;
-import liga.medical.medicalmonitoring.api.repository.AddressRepository;
+import liga.medical.medicalmonitoring.core.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,23 +20,24 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private final AddressRepository addressRepository;
 
+    private final ModelMapper modelMapper = new ModelMapper();
+
     @Override
-    public Long create(AddressRequest request) {
+    public Long create(AddressRequest request, Long contactId) {
         log.info("got request: {}", request);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Address address = modelMapper.map(request, Address.class);
+        address.setContactId(contactId);
         log.info("converted to entity: {}", address);
         return addressRepository.save(address).getId();
     }
 
     @Override
     public AddressResponse getById(Long id) {
-        Address address = addressRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("address not found by id: " + id)
-        );
+        Address address = addressRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("address not found by id: " + id));
         return modelMapper.map(address, AddressResponse.class);
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(value = {NotFoundException.class})
+    @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<Object> handleApiRequestException(NotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }

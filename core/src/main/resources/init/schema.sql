@@ -4,7 +4,7 @@ create table if not exists medical_card
     client_status char      not null,
     med_status    char,
     registry_dt   date      not null,
-    comment       text      not null
+    comment       text
 );
 
 create table if not exists contact
@@ -18,7 +18,7 @@ create table if not exists contact
 create table if not exists illness
 (
     id              bigserial not null unique primary key,
-    medical_card_id bigint    not null references medical_card (id) on delete cascade,
+    medical_card_id bigint references medical_card (id) on delete cascade,
     type_id         bigint    not null,
     heaviness       char      not null,
     appearance_dttm timestamp not null,

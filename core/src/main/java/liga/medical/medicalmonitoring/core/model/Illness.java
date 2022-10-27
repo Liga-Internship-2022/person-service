@@ -6,15 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
@@ -41,8 +37,6 @@ public class Illness {
     @Column(name = "recovery_dt", nullable = false)
     private java.sql.Date recoveryDt;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_card_id", nullable = false)
-    private MedicalCard medicalCard;
+    @Column(name = "medical_card_id", nullable = false)
+    private Long medicalCardId;
 }

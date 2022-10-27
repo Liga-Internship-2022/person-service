@@ -1,17 +1,17 @@
 package liga.medical.medicalmonitoring.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class IllnessResponse {
-    private Long id;
-    private Long typeId;
-    private String heaviness;
-    private java.sql.Timestamp appearanceDttm;
-    private java.sql.Date recoveryDt;
+public class MedicalCardIllnessSoftResponse {
     private Long medicalCardId;
+    private List<Long> illnessesIds;
 }

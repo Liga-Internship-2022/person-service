@@ -1,4 +1,4 @@
-package liga.medical.medicalmonitoring.api.repository;
+package liga.medical.medicalmonitoring.core.repository;
 
 import liga.medical.medicalmonitoring.core.model.Illness;
 import org.springframework.data.jpa.repository.JpaRepository;

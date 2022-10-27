@@ -5,10 +5,11 @@ import liga.medical.medicalmonitoring.dto.IllnessRequest;
 import liga.medical.medicalmonitoring.dto.IllnessResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.Illness;
-import liga.medical.medicalmonitoring.api.repository.IllnessRepository;
+import liga.medical.medicalmonitoring.core.repository.IllnessRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,23 +20,24 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class IllnessServiceImpl implements IllnessService {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private final IllnessRepository illnessRepository;
 
+    private final ModelMapper modelMapper = new ModelMapper();
+
     @Override
-    public Long create(IllnessRequest request) {
+    public Long create(IllnessRequest request, Long medicalCardId) {
         log.info("got request: {}", request);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Illness illness = modelMapper.map(request, Illness.class);
+        illness.setMedicalCardId(medicalCardId);
         log.info("converted to entity: {}", illness);
         return illnessRepository.save(illness).getId();
     }
 
     @Override
     public IllnessResponse getById(Long id) {
-        Illness illness = illnessRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("illness not found by id: " + id)
-        );
+        Illness illness = illnessRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("illness not found by id: " + id));
         return modelMapper.map(illness, IllnessResponse.class);
     }
 

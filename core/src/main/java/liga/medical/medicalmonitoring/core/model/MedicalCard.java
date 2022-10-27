@@ -7,16 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -43,11 +38,4 @@ public class MedicalCard {
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "comment", nullable = false)
     private String comment;
-
-    @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medicalCard", cascade = CascadeType.ALL)
-    private Set<Illness> illnesses;
-
-    @OneToOne(mappedBy = "medicalCard", orphanRemoval = true, cascade = CascadeType.ALL)
-    private PersonData personData;
 }

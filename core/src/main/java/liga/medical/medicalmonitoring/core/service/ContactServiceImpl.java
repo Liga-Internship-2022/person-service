@@ -5,7 +5,7 @@ import liga.medical.medicalmonitoring.core.model.Contact;
 import liga.medical.medicalmonitoring.dto.ContactRequest;
 import liga.medical.medicalmonitoring.dto.ContactResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
-import liga.medical.medicalmonitoring.api.mapping.ContactMapper;
+import liga.medical.medicalmonitoring.core.mapping.ContactMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,9 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContactServiceImpl implements ContactService {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private final ContactMapper contactMapper;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public Long create(ContactRequest request) {

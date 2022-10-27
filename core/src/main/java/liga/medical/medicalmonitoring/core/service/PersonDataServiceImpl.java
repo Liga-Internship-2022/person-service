@@ -5,7 +5,7 @@ import liga.medical.medicalmonitoring.dto.PersonDataRequest;
 import liga.medical.medicalmonitoring.dto.PersonDataResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.PersonData;
-import liga.medical.medicalmonitoring.api.repository.PersonDataRepository;
+import liga.medical.medicalmonitoring.core.repository.PersonDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PersonDataServiceImpl implements PersonDataService {
 
-    private final ModelMapper modelMapper = new ModelMapper();
-
     private final PersonDataRepository personDataRepository;
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public Long create(PersonDataRequest request) {
@@ -33,9 +33,8 @@ public class PersonDataServiceImpl implements PersonDataService {
 
     @Override
     public PersonDataResponse getById(Long id) {
-        PersonData personData = personDataRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("person data not found by id: " + id)
-        );
+        PersonData personData = personDataRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("person data not found by id: " + id));
         return modelMapper.map(personData, PersonDataResponse.class);
     }
 

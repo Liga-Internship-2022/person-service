@@ -1,4 +1,4 @@
-package liga.medical.medicalmonitoring.api.mapping;
+package liga.medical.medicalmonitoring.core.mapping;
 
 import liga.medical.medicalmonitoring.core.model.Contact;
 import liga.medical.medicalmonitoring.dto.ContactResponse;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IllnessService {
 
-    Long create(IllnessRequest request);
+    Long create(IllnessRequest request, Long medicalCardId);
 
     IllnessResponse getById(Long id);
 
