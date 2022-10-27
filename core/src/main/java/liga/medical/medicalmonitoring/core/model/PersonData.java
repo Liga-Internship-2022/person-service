@@ -44,7 +44,7 @@ public class PersonData {
     private Long medicalCardId;
 
     @Column(name = "contact_id", nullable = false)
-    private String contactId;
+    private Long contactId;
 
     @Column(name = "parent_id",
             columnDefinition = "bigint check ( parent_id <> person_data.id ) references person_data (id)")
