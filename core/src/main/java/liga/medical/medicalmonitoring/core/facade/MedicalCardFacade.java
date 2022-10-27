@@ -9,6 +9,7 @@ import liga.medical.medicalmonitoring.dto.MedicalCardIllnessResponse;
 import liga.medical.medicalmonitoring.dto.MedicalCardIllnessSoftResponse;
 import liga.medical.medicalmonitoring.dto.MedicalCardRequest;
 import liga.medical.medicalmonitoring.dto.MedicalCardResponse;
+import liga.medical.medicalmonitoring.dto.PersonDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class MedicalCardFacade {
 
     private final MedicalCardService medicalCardService;
     private final IllnessService illnessService;
+    private final PersonDataFacade personDataFacade;
 
     public MedicalCardIllnessSoftResponse createMedicalCardWithIllnesses(MedicalCardIllnessRequest request) {
         log.info("got request: {}", request);
@@ -66,13 +68,25 @@ public class MedicalCardFacade {
         return result;
     }
 
-    public boolean deleteMedicalCardWithIllnessesByIdWith(Long id) {
-        MedicalCardResponse medicalCard = medicalCardService.getById(id);
-        List<IllnessResponse> allIllnesses = illnessService.getAll();
-        List<IllnessResponse> medicalCardIllnesses = getMedicalCardIllnesses(id, allIllnesses);
-        medicalCardIllnesses.forEach(illness -> illnessService.deleteById(illness.getId()));
+    public boolean deleteMedicalCardWithIllnessesByIdWith(Long medicalCardId) {
+        MedicalCardResponse medicalCard = medicalCardService.getById(medicalCardId);
+        deleteRelatedIllnesses(medicalCardId);
+        deleteRelatedPersonData(medicalCardId);
         medicalCardService.deleteById(medicalCard.getId());
         return true;
+    }
+
+    private void deleteRelatedIllnesses(Long medicalCardId) {
+        List<IllnessResponse> allIllnesses = illnessService.getAll();
+        List<IllnessResponse> medicalCardIllnesses = getMedicalCardIllnesses(medicalCardId, allIllnesses);
+        medicalCardIllnesses.forEach(illness -> illnessService.deleteById(illness.getId()));
+    }
+
+    private void deleteRelatedPersonData(Long medicalCardId) {
+        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream()
+                .filter(pd -> pd.getMedicalCardId().equals(medicalCardId))
+                .collect(Collectors.toList());
+        relatedPersonData.forEach(pd -> personDataFacade.deleteById(pd.getId()));
     }
 
     private List<IllnessResponse> getMedicalCardIllnesses(Long id, List<IllnessResponse> illnesses) {

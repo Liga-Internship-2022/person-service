@@ -9,6 +9,7 @@ import liga.medical.medicalmonitoring.core.repository.PersonDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class PersonDataServiceImpl implements PersonDataService {
     @Override
     public Long create(PersonDataRequest request) {
         log.info("got request: {}", request);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         PersonData personData = modelMapper.map(request, PersonData.class);
         log.info("converted to entity: {}", personData);
         return personDataRepository.save(personData).getId();
@@ -47,10 +49,25 @@ public class PersonDataServiceImpl implements PersonDataService {
     }
 
     @Override
+    public void update(PersonDataRequest personData, Long id) {
+        log.info("got update request: {}", personData);
+        if (!personDataRepository.existsById(id)) {
+            throw new NotFoundException("person data does not exist with id: " + id);
+        }
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        PersonData newPersonData = modelMapper.map(personData, PersonData.class);
+        newPersonData.setId(id);
+        log.info("converted to entity: {}", newPersonData);
+        PersonData updated = personDataRepository.save(newPersonData);
+        log.info("updated: {}", updated);
+    }
+
+    @Override
     public boolean deleteById(Long id) {
         if (!existsById(id)) {
             throw new NotFoundException("person data does not exist with id: " + id);
         }
+        log.info("deleting by id: {}", id);
         personDataRepository.deleteById(id);
         return true;
     }

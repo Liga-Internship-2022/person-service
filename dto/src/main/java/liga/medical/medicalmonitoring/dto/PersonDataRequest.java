@@ -13,4 +13,7 @@ public class PersonDataRequest {
     private java.sql.Date birthDt;
     private Long age;
     private String sex;
+    private Long medicalCardId;
+    private Long contactId;
+    private Long parentId;
 }

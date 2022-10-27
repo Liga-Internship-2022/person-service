@@ -40,7 +40,13 @@ public class PersonData {
     @Column(name = "sex", nullable = false)
     private String sex;
 
+    @Column(name = "medical_card_id", nullable = false)
+    private Long medicalCardId;
+
+    @Column(name = "contact_id", nullable = false)
+    private String contactId;
+
     @Column(name = "parent_id",
             columnDefinition = "bigint check ( parent_id <> person_data.id ) references person_data (id)")
-    private Long parent;
+    private Long parentId;
 }

@@ -13,5 +13,7 @@ public interface PersonDataService {
 
     List<PersonDataResponse> getAll();
 
+    void update(PersonDataRequest personData, Long id);
+
     boolean deleteById(Long id);
 }

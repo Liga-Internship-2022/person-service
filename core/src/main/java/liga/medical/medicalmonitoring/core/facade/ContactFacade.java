@@ -9,6 +9,7 @@ import liga.medical.medicalmonitoring.dto.ContactAddressResponse;
 import liga.medical.medicalmonitoring.dto.ContactAddressSoftResponse;
 import liga.medical.medicalmonitoring.dto.ContactRequest;
 import liga.medical.medicalmonitoring.dto.ContactResponse;
+import liga.medical.medicalmonitoring.dto.PersonDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class ContactFacade {
 
     private final ContactService contactService;
     private final AddressService addressService;
+    private final PersonDataFacade personDataFacade;
 
     public ContactAddressSoftResponse createContactWithAddresses(ContactAddressRequest request) {
         log.info("got request: {}", request);
@@ -66,18 +68,31 @@ public class ContactFacade {
         return result;
     }
 
-    public boolean deleteContactWithAddressesById(Long id) {
-        ContactResponse contact = contactService.getById(id);
-        List<AddressResponse> allAddresses = addressService.getAll();
-        List<AddressResponse> contactAddresses = getContactAddresses(id, allAddresses);
-        contactAddresses.forEach(address -> addressService.deleteById(address.getId()));
+    public boolean deleteContactWithAddressesById(Long contactId) {
+        ContactResponse contact = contactService.getById(contactId);
+        deleteRelatedAddresses(contactId);
+        deleteRelatedPersonData(contactId);
         contactService.deleteById(contact.getId());
         return true;
     }
 
-    private List<AddressResponse> getContactAddresses(Long id, List<AddressResponse> addresses) {
-        return addresses.stream()
-                .filter(address -> address.getContactId().equals(id))
+    private void deleteRelatedAddresses(Long contactId) {
+        List<AddressResponse> relatedAddresses = addressService.getAll().stream()
+                .filter(address -> address.getContactId().equals(contactId))
+                .collect(Collectors.toList());
+        relatedAddresses.forEach(address -> addressService.deleteById(address.getId()));
+    }
+
+    private void deleteRelatedPersonData(Long contactId) {
+        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream()
+                .filter(pd -> pd.getContactId().equals(contactId))
+                .collect(Collectors.toList());
+        relatedPersonData.forEach(pd -> personDataFacade.deleteById(pd.getId()));
+    }
+
+    private List<AddressResponse> getContactAddresses(Long contactId, List<AddressResponse> allAddresses) {
+        return allAddresses.stream()
+                .filter(address -> address.getContactId().equals(contactId))
                 .collect(Collectors.toList());
     }
 }
