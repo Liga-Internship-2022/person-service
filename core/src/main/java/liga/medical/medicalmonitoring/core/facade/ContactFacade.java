@@ -34,24 +34,17 @@ public class ContactFacade {
         List<AddressRequest> addresses = request.getAddresses();
         List<Long> createdAddressIds = new ArrayList<>();
         addresses.forEach(address -> {
-                    Long addressId = addressService.create(address, contactId);
-                    createdAddressIds.add(addressId);
-                }
-        );
-        return ContactAddressSoftResponse.builder()
-                .contactId(contactId)
-                .addressesIds(createdAddressIds)
-                .build();
+            Long addressId = addressService.create(address, contactId);
+            createdAddressIds.add(addressId);
+        });
+        return ContactAddressSoftResponse.builder().contactId(contactId).addressesIds(createdAddressIds).build();
     }
 
     public ContactAddressResponse getById(Long id) {
         ContactResponse contact = contactService.getById(id);
         List<AddressResponse> allAddresses = addressService.getAll();
         List<AddressResponse> contactAddresses = getContactAddresses(id, allAddresses);
-        return ContactAddressResponse.builder()
-                .contact(contact)
-                .addresses(contactAddresses)
-                .build();
+        return ContactAddressResponse.builder().contact(contact).addresses(contactAddresses).build();
     }
 
     public List<ContactAddressResponse> getAll() {
@@ -60,10 +53,7 @@ public class ContactFacade {
         List<AddressResponse> allAddresses = addressService.getAll();
         contacts.forEach(contact -> {
             List<AddressResponse> contactAddresses = getContactAddresses(contact.getId(), allAddresses);
-            result.add(ContactAddressResponse.builder()
-                    .contact(contact)
-                    .addresses(contactAddresses)
-                    .build());
+            result.add(ContactAddressResponse.builder().contact(contact).addresses(contactAddresses).build());
         });
         return result;
     }
@@ -77,22 +67,16 @@ public class ContactFacade {
     }
 
     private void deleteRelatedAddresses(Long contactId) {
-        List<AddressResponse> relatedAddresses = addressService.getAll().stream()
-                .filter(address -> address.getContactId().equals(contactId))
-                .collect(Collectors.toList());
+        List<AddressResponse> relatedAddresses = addressService.getAll().stream().filter(address -> address.getContactId().equals(contactId)).collect(Collectors.toList());
         relatedAddresses.forEach(address -> addressService.deleteById(address.getId()));
     }
 
     private void deleteRelatedPersonData(Long contactId) {
-        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream()
-                .filter(pd -> pd.getContactId().equals(contactId))
-                .collect(Collectors.toList());
+        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream().filter(pd -> pd.getContactId().equals(contactId)).collect(Collectors.toList());
         relatedPersonData.forEach(pd -> personDataFacade.deleteById(pd.getId()));
     }
 
     private List<AddressResponse> getContactAddresses(Long contactId, List<AddressResponse> allAddresses) {
-        return allAddresses.stream()
-                .filter(address -> address.getContactId().equals(contactId))
-                .collect(Collectors.toList());
+        return allAddresses.stream().filter(address -> address.getContactId().equals(contactId)).collect(Collectors.toList());
     }
 }

@@ -34,24 +34,17 @@ public class MedicalCardFacade {
         List<IllnessRequest> illnesses = request.getIllnesses();
         List<Long> createdIllnessIds = new ArrayList<>();
         illnesses.forEach(illness -> {
-                    Long illnessId = illnessService.create(illness, mcId);
-                    createdIllnessIds.add(illnessId);
-                }
-        );
-        return MedicalCardIllnessSoftResponse.builder()
-                .medicalCardId(mcId)
-                .illnessesIds(createdIllnessIds)
-                .build();
+            Long illnessId = illnessService.create(illness, mcId);
+            createdIllnessIds.add(illnessId);
+        });
+        return MedicalCardIllnessSoftResponse.builder().medicalCardId(mcId).illnessesIds(createdIllnessIds).build();
     }
 
     public MedicalCardIllnessResponse getById(Long id) {
         MedicalCardResponse medicalCard = medicalCardService.getById(id);
         List<IllnessResponse> allIllnesses = illnessService.getAll();
         List<IllnessResponse> mcIllnesses = getMedicalCardIllnesses(id, allIllnesses);
-        return MedicalCardIllnessResponse.builder()
-                .medicalCard(medicalCard)
-                .illnesses(mcIllnesses)
-                .build();
+        return MedicalCardIllnessResponse.builder().medicalCard(medicalCard).illnesses(mcIllnesses).build();
     }
 
     public List<MedicalCardIllnessResponse> getAll() {
@@ -60,10 +53,7 @@ public class MedicalCardFacade {
         List<IllnessResponse> allIllnesses = illnessService.getAll();
         medicalCards.forEach(mc -> {
             List<IllnessResponse> mcIllnesses = getMedicalCardIllnesses(mc.getId(), allIllnesses);
-            result.add(MedicalCardIllnessResponse.builder()
-                    .medicalCard(mc)
-                    .illnesses(mcIllnesses)
-                    .build());
+            result.add(MedicalCardIllnessResponse.builder().medicalCard(mc).illnesses(mcIllnesses).build());
         });
         return result;
     }
@@ -83,15 +73,11 @@ public class MedicalCardFacade {
     }
 
     private void deleteRelatedPersonData(Long medicalCardId) {
-        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream()
-                .filter(pd -> pd.getMedicalCardId().equals(medicalCardId))
-                .collect(Collectors.toList());
+        List<PersonDataResponse> relatedPersonData = personDataFacade.getAll().stream().filter(pd -> pd.getMedicalCardId().equals(medicalCardId)).collect(Collectors.toList());
         relatedPersonData.forEach(pd -> personDataFacade.deleteById(pd.getId()));
     }
 
     private List<IllnessResponse> getMedicalCardIllnesses(Long id, List<IllnessResponse> illnesses) {
-        return illnesses.stream()
-                .filter(illness -> illness.getMedicalCardId().equals(id))
-                .collect(Collectors.toList());
+        return illnesses.stream().filter(illness -> illness.getMedicalCardId().equals(id)).collect(Collectors.toList());
     }
 }
