@@ -1,15 +1,14 @@
 package liga.medical.medicalmonitoring.core.service;
 
 import liga.medical.medicalmonitoring.api.service.AddressService;
-import liga.medical.medicalmonitoring.dto.AddressRequest;
-import liga.medical.medicalmonitoring.dto.AddressResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.Address;
 import liga.medical.medicalmonitoring.core.repository.AddressRepository;
+import liga.medical.medicalmonitoring.dto.AddressRequest;
+import liga.medical.medicalmonitoring.dto.AddressResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +21,11 @@ public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
     public Long create(AddressRequest request, Long contactId) {
         log.info("got request: {}", request);
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Address address = modelMapper.map(request, Address.class);
         address.setContactId(contactId);
         log.info("converted to entity: {}", address);

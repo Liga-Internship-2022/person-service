@@ -1,15 +1,14 @@
 package liga.medical.medicalmonitoring.core.service;
 
 import liga.medical.medicalmonitoring.api.service.IllnessService;
-import liga.medical.medicalmonitoring.dto.IllnessRequest;
-import liga.medical.medicalmonitoring.dto.IllnessResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.Illness;
 import liga.medical.medicalmonitoring.core.repository.IllnessRepository;
+import liga.medical.medicalmonitoring.dto.IllnessRequest;
+import liga.medical.medicalmonitoring.dto.IllnessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +21,11 @@ public class IllnessServiceImpl implements IllnessService {
 
     private final IllnessRepository illnessRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
     public Long create(IllnessRequest request, Long medicalCardId) {
         log.info("got request: {}", request);
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         Illness illness = modelMapper.map(request, Illness.class);
         illness.setMedicalCardId(medicalCardId);
         log.info("converted to entity: {}", illness);

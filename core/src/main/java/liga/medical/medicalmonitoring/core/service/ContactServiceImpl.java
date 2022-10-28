@@ -20,7 +20,7 @@ public class ContactServiceImpl implements ContactService {
 
     private final ContactMapper contactMapper;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
     public Long create(ContactRequest request) {

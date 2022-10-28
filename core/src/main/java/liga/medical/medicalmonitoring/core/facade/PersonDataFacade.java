@@ -9,7 +9,6 @@ import liga.medical.medicalmonitoring.dto.PersonDataResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class PersonDataFacade {
     private final MedicalCardService medicalCardService;
     private final ContactService contactService;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     public PersonDataResponse create(PersonDataRequest request) {
         Long medicalCardId = request.getMedicalCardId();
@@ -42,7 +41,6 @@ public class PersonDataFacade {
         }
 
         Long pdId = personDataService.create(request);
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         PersonDataResponse response = modelMapper.map(request, PersonDataResponse.class);
         response.setId(pdId);
         return response;
@@ -61,7 +59,6 @@ public class PersonDataFacade {
         List<PersonDataResponse> descendants = allPersonData.stream()
                 .filter(pd -> id.equals(pd.getParentId()))
                 .collect(Collectors.toList());
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         descendants.forEach(child -> {
             child.setParentId(null);
             PersonDataRequest updateRequest = modelMapper.map(child, PersonDataRequest.class);

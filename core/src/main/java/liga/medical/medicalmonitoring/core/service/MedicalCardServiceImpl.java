@@ -22,7 +22,7 @@ public class MedicalCardServiceImpl implements MedicalCardService {
 
     private final MedicalCardRepository medicalCardRepository;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
     public Long create(MedicalCardRequest request) {
