@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
     <changeSet id="4" author="kainovk">
-        <comment>Добавление пользователя с ролью ADMIN</comment>
+        <comment>Добавление пользователя admin с ролями ADMIN и USER</comment>
 
         <insert tableName="users" schemaName="clinic">
             <column name="username" value="admin"/>
