@@ -12,6 +12,9 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog.xml
     enabled: true
+  mustache:
+    servlet:
+      expose-request-attributes: true
 
 mybatis:
   mapper-locations: classpath*:mappings/*.xml

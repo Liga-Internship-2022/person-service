@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liga.medical.medicalmonitoring.core.mapping.UserRoleMapper">
+
+    <insert id="addRole">
+        INSERT INTO user_role (user_id, role_id)
+        VALUES (#{userId}, #{roleId});
+    </insert>
+
+    <delete id="deleteRole">
+        DELETE
+        FROM user_role
+        WHERE 1 = 1
+          AND user_id = #{userId}
+          AND role_id = #{roleId}
+    </delete>
+
+    <select id="getRoles" resultMap="UserResultMap">
+        SELECT r.id   AS id,
+               r.role AS role
+        FROM users AS u
+                 LEFT JOIN user_role AS ur ON u.id = ur.user_id
+                 LEFT JOIN roles AS r ON r.id = ur.role_id
+        WHERE 1 = 1
+          AND u.id = #{id}
+    </select>
+
+    <select id="getUsers" resultMap="RoleResultMap">
+        SELECT u.id       AS id,
+               u.username AS username,
+               u.password AS encoded_password
+        FROM roles AS r
+                 LEFT JOIN user_role AS ur ON r.id = ur.role_id
+                 LEFT JOIN users AS u ON u.id = ur.user_id
+        WHERE 1 = 1
+          AND r.id = #{id}
+    </select>
+
+    <resultMap id="UserResultMap" type="liga.medical.medicalmonitoring.core.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <collection javaType="ArrayList" property="users" resultMap="RoleResultMap"/>
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="liga.medical.medicalmonitoring.core.model.Role">
+        <id property="id" column="id"/>
+        <result property="name" column="role"/>
+        <collection javaType="ArrayList" property="roles" resultMap="UserResultMap"/>
+    </resultMap>
+</mapper>
