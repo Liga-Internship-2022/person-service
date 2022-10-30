@@ -4,11 +4,13 @@ import liga.medical.medicalmonitoring.core.exception.AlreadyExistException;
 import liga.medical.medicalmonitoring.core.exception.BadLoginDataException;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.mapping.UserMapper;
+import liga.medical.medicalmonitoring.core.mapping.UserRoleMapper;
 import liga.medical.medicalmonitoring.core.model.User;
 import liga.medical.medicalmonitoring.core.service.api.UserService;
 import liga.medical.medicalmonitoring.dto.UserRequest;
 import liga.medical.medicalmonitoring.dto.auth.UserDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final UserRoleMapper userRoleMapper;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -39,7 +43,8 @@ public class UserServiceImpl implements UserService {
         }
         String password = bCryptPasswordEncoder.encode(userRequest.getPassword());
         User user = new User(userRequest.getUsername(), password);
-        userMapper.save(user);
+        long userId = userMapper.save(user);
+        userRoleMapper.addRole(userId, 1);
     }
 
     @Override
@@ -53,7 +58,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAll() {
-        return userMapper.findAll().stream().filter(Objects::nonNull).map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
+        return userMapper.findAll().stream()
+                .filter(Objects::nonNull)
+                .map(user -> modelMapper.map(user, UserDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

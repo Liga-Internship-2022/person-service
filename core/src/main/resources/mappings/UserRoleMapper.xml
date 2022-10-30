@@ -17,7 +17,7 @@
           AND role_id = #{roleId}
     </delete>
 
-    <select id="getRoles" resultMap="UserResultMap">
+    <select id="getRoles" resultMap="RoleResultMap">
         SELECT r.id   AS id,
                r.role AS role
         FROM users AS u
@@ -47,6 +47,6 @@
     <resultMap id="RoleResultMap" type="liga.medical.medicalmonitoring.core.model.Role">
         <id property="id" column="id"/>
         <result property="name" column="role"/>
-        <collection javaType="ArrayList" property="roles" resultMap="UserResultMap"/>
+        <!--<collection javaType="ArrayList" property="roles" resultMap="UserResultMap"/> -->
     </resultMap>
 </mapper>

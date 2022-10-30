@@ -1,7 +1,6 @@
 package liga.medical.medicalmonitoring.core.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,18 +19,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
+        httpSecurity
+                .csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/news").hasRole("USER")
+                .antMatchers("/news").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/", "/resources/**").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login")
+                .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/").permitAll().and()
                 .logout().permitAll()
-                .logoutSuccessUrl("/").and()
-                .csrf().disable();
+                .logoutSuccessUrl("/login");
     }
 
     @Override

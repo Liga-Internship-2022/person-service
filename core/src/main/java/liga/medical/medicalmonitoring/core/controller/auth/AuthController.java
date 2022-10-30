@@ -1,7 +1,9 @@
 package liga.medical.medicalmonitoring.core.controller.auth;
 
+import liga.medical.medicalmonitoring.core.service.api.RoleService;
 import liga.medical.medicalmonitoring.core.service.api.UserService;
 import liga.medical.medicalmonitoring.dto.UserRequest;
+import liga.medical.medicalmonitoring.dto.auth.RoleDto;
 import liga.medical.medicalmonitoring.dto.auth.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +17,15 @@ import java.util.Map;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class RegistrationController {
+public class AuthController {
 
     private final UserService userService;
+    private final RoleService roleService;
+
+    @GetMapping("/")
+    public String greeting() {
+        return "greeting";
+    }
 
     @PostMapping("/registration")
     public String addUser(UserRequest userRequest) {
@@ -30,15 +38,19 @@ public class RegistrationController {
         return "registration";
     }
 
-    @GetMapping("/")
-    public String greeting() {
-        return "greeting";
-    }
-
     @GetMapping("/main")
     public String main(Map<String, Object> model) {
         List<UserDto> users = userService.getAll();
         model.put("users", users);
         return "main";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Map<String, Object> model) {
+        List<UserDto> users = userService.getAll();
+        List<RoleDto> roles = roleService.getAll();
+        model.put("users", users);
+        model.put("roles", roles);
+        return "admin";
     }
 }

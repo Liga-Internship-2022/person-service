@@ -1,9 +1,11 @@
 package liga.medical.medicalmonitoring.dto.auth;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class RoleDto {
-    private final Long id;
-    private final String name;
+    private Long id;
+    private String name;
 }

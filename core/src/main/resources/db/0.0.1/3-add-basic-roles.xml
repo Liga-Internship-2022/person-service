@@ -9,10 +9,10 @@
         <comment>Добавление USER, ADMIN ролей</comment>
 
         <insert tableName="roles" schemaName="clinic">
-            <column name="role" value="USER"/>
+            <column name="role" value="ROLE_USER"/>
         </insert>
         <insert tableName="roles" schemaName="clinic">
-            <column name="role" value="ADMIN"/>
+            <column name="role" value="ROLE_ADMIN"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    void save(User user);
+    long save(User user);
 
     User findById(Long id);
 
