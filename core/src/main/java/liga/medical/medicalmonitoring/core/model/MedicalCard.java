@@ -1,6 +1,7 @@
 package liga.medical.medicalmonitoring.core.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "medical_card", schema = "clinic")
 public class MedicalCard {
 
     @Id
@@ -36,6 +37,6 @@ public class MedicalCard {
     private java.sql.Date registryDt;
 
     @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "comment", nullable = false)
+    @Column(name = "comment")
     private String comment;
 }

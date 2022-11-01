@@ -5,6 +5,14 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
-    <includeAll path="db/0.0.1"/>
-    <includeAll path="db/0.0.2"/>
+    <changeSet id="3" author="kainovk">
+        <comment>Добавление USER, ADMIN ролей</comment>
+
+        <insert tableName="roles" schemaName="clinic">
+            <column name="role" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles" schemaName="clinic">
+            <column name="role" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
