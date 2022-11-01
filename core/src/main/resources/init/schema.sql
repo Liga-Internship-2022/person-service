@@ -11,8 +11,8 @@ create table if not exists contact
 (
     id           bigserial    not null unique primary key,
     phone_number varchar(32)  not null,
-    email        varchar(128) not null,
-    profile_link text         not null
+    email        varchar(128),
+    profile_link text
 );
 
 create table if not exists illness
