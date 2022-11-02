@@ -1,5 +1,7 @@
 package liga.medical.medicalmonitoring.core.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import liga.medical.medicalmonitoring.core.facade.ContactFacade;
 import liga.medical.medicalmonitoring.dto.ContactAddressRequest;
 import liga.medical.medicalmonitoring.dto.ContactAddressResponse;
@@ -18,26 +20,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
+@Api(value = "API для работы с контактами")
 public class ContactController {
 
     private final ContactFacade contactFacade;
 
     @PostMapping
+    @ApiOperation(value = "Создание контакта")
     public ContactAddressSoftResponse createContact(@RequestBody ContactAddressRequest request) {
         return contactFacade.createContactWithAddresses(request);
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Получение контакта по id")
     public ContactAddressResponse getContactById(@PathVariable Long id) {
         return contactFacade.getById(id);
     }
 
     @GetMapping
+    @ApiOperation(value = "Получение всех контактов")
     public List<ContactAddressResponse> getAllContacts() {
         return contactFacade.getAll();
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Удаление контакта по id")
     public boolean deleteContactById(@PathVariable Long id) {
         return contactFacade.deleteContactWithAddressesById(id);
     }

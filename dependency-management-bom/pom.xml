@@ -18,6 +18,7 @@
         <mybatis.version>3.5.5</mybatis.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <liquibase-core.version>4.10.0</liquibase-core.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +103,11 @@
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-boot-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
