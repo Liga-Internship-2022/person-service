@@ -2,6 +2,7 @@ package liga.medical.medicalmonitoring.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import liga.medical.medicalmonitoring.core.annotations.RestLog;
 import liga.medical.medicalmonitoring.core.facade.MedicalCardFacade;
 import liga.medical.medicalmonitoring.dto.MedicalCardIllnessRequest;
 import liga.medical.medicalmonitoring.dto.MedicalCardIllnessResponse;
@@ -25,24 +26,28 @@ public class MedicalCardController {
 
     private final MedicalCardFacade medicalCardFacade;
 
+    @RestLog
     @PostMapping
     @ApiOperation(value = "Создание медицинской карты")
     public MedicalCardIllnessSoftResponse createMedicalCardWithIllnesses(@RequestBody MedicalCardIllnessRequest request) {
         return medicalCardFacade.createMedicalCardWithIllnesses(request);
     }
 
+    @RestLog
     @GetMapping("/{id}")
     @ApiOperation(value = "Получение медицинской карты по id")
     public MedicalCardIllnessResponse getMedicalCardById(@PathVariable Long id) {
         return medicalCardFacade.getById(id);
     }
 
+    @RestLog
     @GetMapping
     @ApiOperation(value = "Получение всех медицинских карт")
     public List<MedicalCardIllnessResponse> getAllMedicalCards() {
         return medicalCardFacade.getAll();
     }
 
+    @RestLog
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Удаление медицинской карты по id")
     public boolean deleteMedicalCardWithIllnessesById(@PathVariable Long id) {

@@ -1,6 +1,11 @@
 package liga.medical.medicalmonitoring.core.config;
 
+import liga.medical.medicalmonitoring.core.controller.auth.CustomAuthenticationFailureHandler;
+import liga.medical.medicalmonitoring.core.controller.auth.CustomAuthenticationSuccessHandler;
+import liga.medical.medicalmonitoring.core.controller.auth.LoginAttemptFilter;
+import liga.medical.medicalmonitoring.core.mapping.LoginAttemptMapper;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,19 +21,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final LoginAttemptMapper loginAttemptMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .addFilter(loginAttemptFilter())
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/news").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll()
+                .successHandler(customAuthenticationSuccessHandler())
+                .failureHandler(customAuthenticationFailureHandler())
                 .defaultSuccessUrl("/").permitAll().and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");
@@ -42,5 +51,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public LoginAttemptFilter loginAttemptFilter() throws Exception {
+        return new LoginAttemptFilter(super.authenticationManagerBean(), loginAttemptMapper, modelMapper);
+    }
+
+    @Bean
+    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public CustomAuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 }
