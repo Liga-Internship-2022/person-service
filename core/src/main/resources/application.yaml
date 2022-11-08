@@ -18,7 +18,3 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:mappings/*.xml
-
-logging:
-  file:
-    name: ../common-module/medical.log
