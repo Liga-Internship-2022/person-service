@@ -25,9 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final ModelMapper modelMapper;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .addFilter(loginAttemptFilter())
+                .httpBasic().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
@@ -35,17 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login").permitAll()
+                .addFilter(loginAttemptFilter())
+                .formLogin().loginPage("/login")
                 .successHandler(customAuthenticationSuccessHandler())
                 .failureHandler(customAuthenticationFailureHandler())
                 .defaultSuccessUrl("/").permitAll().and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

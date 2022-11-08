@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     @ApiOperation(value = "Отправка запроса со страницы регистрации")
-    public String addUser(UserRequest userRequest) {
+    public String addUser(@RequestBody UserRequest userRequest) {
         userService.save(userRequest);
         return "redirect:/login";
     }

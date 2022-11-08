@@ -16,8 +16,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         HttpServletResponse response,
                                         Authentication authentication) {
 
+        String logId = "login-success-logger";
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
-        log.info("The user " + username + " has logged in.");
+
+        log.info("[{}] успешный вход в систему. Логин: [username={}]", logId, username);
     }
 }

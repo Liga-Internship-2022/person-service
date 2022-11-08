@@ -2,7 +2,7 @@ package liga.medical.medicalmonitoring.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liga.medical.medicalmonitoring.core.annotations.RestLog;
+import liga.medical.medicalmonitoring.core.aop.annotations.RestLog;
 import liga.medical.medicalmonitoring.core.facade.PersonDataFacade;
 import liga.medical.medicalmonitoring.dto.PersonDataRequest;
 import liga.medical.medicalmonitoring.dto.PersonDataResponse;

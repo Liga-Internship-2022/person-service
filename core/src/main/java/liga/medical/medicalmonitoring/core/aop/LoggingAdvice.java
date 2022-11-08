@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoggingAdvice {
 
-    @Pointcut(value = "@annotation(liga.medical.medicalmonitoring.core.annotations.RestLog)")
+    @Pointcut(value = "@annotation(liga.medical.medicalmonitoring.core.aop.annotations.RestLog)")
     public void restLogPointcut() {
     }
 
