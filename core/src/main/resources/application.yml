@@ -12,9 +12,14 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog.xml
     enabled: true
+    default-schema: clinic
   mustache:
     servlet:
       expose-request-attributes: true
 
 mybatis:
   mapper-locations: classpath*:mappings/*.xml
+
+logging:
+  file:
+    name: ../common-module/medical.log

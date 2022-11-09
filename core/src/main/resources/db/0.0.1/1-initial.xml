@@ -8,7 +8,7 @@
     <changeSet id="1" author="kainovk">
         <comment>Создание начальной структуры таблиц</comment>
 
-        <createTable tableName="medical_card">
+        <createTable tableName="medical_card" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -25,7 +25,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="contact">
+        <createTable tableName="contact" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -40,7 +40,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="illness">
+        <createTable tableName="illness" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -61,7 +61,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="person_data">
+        <createTable tableName="person_data" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -94,7 +94,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="address">
+        <createTable tableName="address" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>

@@ -8,7 +8,7 @@
     <changeSet id="2" author="kainovk">
         <comment>Создание таблицы с информацией о попытках входа в систему</comment>
 
-        <createTable tableName="login_attempt">
+        <createTable tableName="login_attempt" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>

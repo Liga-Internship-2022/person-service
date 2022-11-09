@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import liga.medical.service.LoggingService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import model.LogMessage;
 import model.SystemType;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,14 +16,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class LoggingAdvice {
 
     private final LoggingService loggingService;
 
-    @Pointcut(value = "@annotation(liga.medical.medicalmonitoring.core.aop.annotations.RestLog)")
+    @Pointcut(value = "@annotation(liga.medical.medicalmonitoring.core.aop.annotations.DbLog)")
     public void restLogPointcut() {
     }
 

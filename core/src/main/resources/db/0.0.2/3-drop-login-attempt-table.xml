@@ -5,10 +5,11 @@
         xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
-    <changeSet id="1" author="kainovk">
-        <comment>Изменение некоторых столбцов, которые могут быть null</comment>
+    <changeSet id="3" author="kainovk">
+        <comment>Удаление таблицы с информацией о попытках входа в систему</comment>
 
-        <dropNotNullConstraint tableName="contact" columnName="email" schemaName="clinic"/>
-        <dropNotNullConstraint tableName="contact" columnName="profile_link" schemaName="clinic"/>
+        <dropTable cascadeConstraints="true"
+                   schemaName="clinic"
+                   tableName="login_attempt"/>
     </changeSet>
 </databaseChangeLog>

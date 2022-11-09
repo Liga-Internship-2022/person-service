@@ -2,7 +2,7 @@ package liga.medical.medicalmonitoring.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liga.medical.medicalmonitoring.core.aop.annotations.RestLog;
+import liga.medical.medicalmonitoring.core.aop.annotations.DbLog;
 import liga.medical.medicalmonitoring.core.facade.PersonDataFacade;
 import liga.medical.medicalmonitoring.dto.PersonDataRequest;
 import liga.medical.medicalmonitoring.dto.PersonDataResponse;
@@ -25,28 +25,28 @@ public class PersonDataController {
 
     private final PersonDataFacade personDataFacade;
 
-    @RestLog
+    @DbLog
     @PostMapping
     @ApiOperation(value = "Создание персональных данных")
     public PersonDataResponse createPersonData(@RequestBody PersonDataRequest request) {
         return personDataFacade.create(request);
     }
 
-    @RestLog
+    @DbLog
     @GetMapping("/{id}")
     @ApiOperation(value = "Получение персональных данных по id")
     public PersonDataResponse getPersonDataById(@PathVariable Long id) {
         return personDataFacade.getById(id);
     }
 
-    @RestLog
+    @DbLog
     @GetMapping
     @ApiOperation(value = "Получение всех персональных данных")
     public List<PersonDataResponse> getAllPersonData() {
         return personDataFacade.getAll();
     }
 
-    @RestLog
+    @DbLog
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Удаление персональных данных по id")
     public boolean deletePersonDataById(@PathVariable Long id) {
