@@ -59,7 +59,7 @@ public class LoggingAdvice {
             object = pjp.proceed();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
-            loggingService.logException(logMessage, SystemType.PERSON_SERVICE);
+            loggingService.logRestException(logMessage, SystemType.PERSON_SERVICE);
         }
         return object;
     }
