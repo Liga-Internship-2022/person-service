@@ -12,8 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContactRequestDto {
-    private String phoneNumber;
-    private String email;
-    private String profileLink;
+    private ContactRequest contact;
     private List<AddressRequest> addresses;
 }

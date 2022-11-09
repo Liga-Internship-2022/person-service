@@ -12,9 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContactResponseDto {
-    private Long id;
-    private String phoneNumber;
-    private String email;
-    private String profileLink;
+    private ContactResponse contact;
     private List<AddressResponseDto> addresses;
 }

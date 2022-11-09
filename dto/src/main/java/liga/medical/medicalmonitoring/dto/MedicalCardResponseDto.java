@@ -12,9 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicalCardResponseDto {
-    private Long id;
-    private String clientStatus;
-    private String medStatus;
-    private String comment;
+    private MedicalCardResponse medicalCard;
     private List<IllnessResponseDto> illnesses;
 }

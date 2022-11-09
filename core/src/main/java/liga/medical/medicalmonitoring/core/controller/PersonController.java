@@ -2,6 +2,7 @@ package liga.medical.medicalmonitoring.core.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import liga.medical.medicalmonitoring.core.aop.annotations.DbLog;
 import liga.medical.medicalmonitoring.core.facade.PersonFacade;
 import liga.medical.medicalmonitoring.dto.PersonRequest;
 import liga.medical.medicalmonitoring.dto.PersonResponse;
@@ -21,12 +22,14 @@ public class PersonController {
 
     private final PersonFacade personFacade;
 
+    @DbLog
     @PostMapping
     @ApiOperation(value = "Создание пользователя. Возвращает его id")
     public Long createPerson(@RequestBody PersonRequest request) {
         return personFacade.createPerson(request);
     }
 
+    @DbLog
     @GetMapping("/{id}")
     @ApiOperation(value = "Получение пользователя по id")
     public PersonResponse getPersonById(@PathVariable Long id) {

@@ -12,8 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedicalCardRequestDto {
-    private String clientStatus;
-    private String medStatus;
-    private String comment;
+    private MedicalCardRequest medicalCard;
     private List<IllnessRequest> illnesses;
 }
