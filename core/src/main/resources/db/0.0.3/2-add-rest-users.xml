@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+    <changeSet id="4" author="kainovk">
+        <comment>Добавление пользователей для работы с REST API</comment>
+
+        <insert tableName="users" schemaName="clinic">
+            <column name="username" value="rest-medical-card"/>
+            <!-- password = abracadabra -->
+            <column name="password" value="$2a$12$3rCObGrfNRIgP7LrrPuPo.stOR6AVLmJ/tHPy4ue.QpMXL0NC9CqC"/>
+        </insert>
+        <insert tableName="user_role" schemaName="clinic">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="3"/>
+        </insert>
+
+        <insert tableName="users" schemaName="clinic">
+            <column name="username" value="rest-contact"/>
+            <!-- password = abracadabra -->
+            <column name="password" value="$2a$12$3rCObGrfNRIgP7LrrPuPo.stOR6AVLmJ/tHPy4ue.QpMXL0NC9CqC"/>
+        </insert>
+        <insert tableName="user_role" schemaName="clinic">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="4"/>
+        </insert>
+
+        <insert tableName="users" schemaName="clinic">
+            <column name="username" value="rest-person-data"/>
+            <!-- password = abracadabra -->
+            <column name="password" value="$2a$12$3rCObGrfNRIgP7LrrPuPo.stOR6AVLmJ/tHPy4ue.QpMXL0NC9CqC"/>
+        </insert>
+        <insert tableName="user_role" schemaName="clinic">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="5"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

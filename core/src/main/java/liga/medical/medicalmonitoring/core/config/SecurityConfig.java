@@ -26,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         String userRole = "USER";
         String adminRole = "ADMIN";
+        String restMedicalCardRole = "REST_MEDICAL_CARD";
+        String restContactRole = "REST_CONTACT";
+        String restPersonDataRole = "REST_PERSON_DATA";
 
         httpSecurity
                 .httpBasic().and()
@@ -35,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole(adminRole)
                 .antMatchers("/persons/**").hasRole(adminRole)
+                .antMatchers("/medical-cards/**").hasRole(restMedicalCardRole)
+                .antMatchers("/contacts/**").hasRole(restContactRole)
+                .antMatchers("/person-data/**").hasRole(restPersonDataRole)
                 .antMatchers("/**").hasAnyRole(userRole, adminRole)
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login")
