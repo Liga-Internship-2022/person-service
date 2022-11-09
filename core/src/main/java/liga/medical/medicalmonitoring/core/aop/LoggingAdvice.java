@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import liga.medical.service.LoggingService;
 import lombok.RequiredArgsConstructor;
-import model.LogMessage;
+import model.LogRestMessage;
 import model.SystemType;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -45,7 +45,7 @@ public class LoggingAdvice {
         String methodName = pjp.getSignature().getName();
         String args = objectMapper.writeValueAsString(pjp.getArgs());
 
-        LogMessage logMessage = LogMessage.builder()
+        LogRestMessage logMessage = LogRestMessage.builder()
                 .logId(logId)
                 .username(username)
                 .className(className)
