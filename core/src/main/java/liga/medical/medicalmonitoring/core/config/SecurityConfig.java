@@ -24,14 +24,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        String userRole = "USER";
+        String adminRole = "ADMIN";
+
         httpSecurity
                 .httpBasic().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**").hasRole(adminRole)
+                .antMatchers("/persons/**").hasRole(adminRole)
+                .antMatchers("/**").hasAnyRole(userRole, adminRole)
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/").permitAll().and()

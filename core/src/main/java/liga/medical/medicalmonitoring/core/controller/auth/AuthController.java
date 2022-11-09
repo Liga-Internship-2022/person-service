@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liga.medical.medicalmonitoring.core.service.api.RoleService;
 import liga.medical.medicalmonitoring.core.service.api.UserService;
-import liga.medical.medicalmonitoring.dto.UserRequest;
+import liga.medical.medicalmonitoring.dto.auth.UserRequest;
 import liga.medical.medicalmonitoring.dto.auth.RoleDto;
 import liga.medical.medicalmonitoring.dto.auth.UserDto;
 import lombok.RequiredArgsConstructor;

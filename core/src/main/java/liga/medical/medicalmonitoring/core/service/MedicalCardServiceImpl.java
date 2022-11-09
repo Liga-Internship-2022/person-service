@@ -1,8 +1,8 @@
 package liga.medical.medicalmonitoring.core.service;
 
 import liga.medical.medicalmonitoring.api.service.MedicalCardService;
-import liga.medical.medicalmonitoring.dto.MedicalCardRequest;
-import liga.medical.medicalmonitoring.dto.MedicalCardResponse;
+import liga.medical.medicalmonitoring.dto.rest.medical_card.MedicalCardRequest;
+import liga.medical.medicalmonitoring.dto.rest.medical_card.MedicalCardResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.model.MedicalCard;
 import liga.medical.medicalmonitoring.core.repository.MedicalCardRepository;

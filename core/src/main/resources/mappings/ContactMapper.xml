@@ -26,7 +26,7 @@
         WHERE id = #{id}
     </delete>
 
-    <resultMap id="ContactResponseMap" type="liga.medical.medicalmonitoring.dto.ContactResponse">
+    <resultMap id="ContactResponseMap" type="liga.medical.medicalmonitoring.dto.rest.contact.ContactResponse">
         <id property="id" column="id"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="email" column="email"/>

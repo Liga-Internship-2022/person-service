@@ -15,7 +15,7 @@ spring:
     default-schema: clinic
   sql:
     init:
-      data-locations: classpath:db/data.sql
+      data-locations: classpath:init/data.sql
       mode: always
   mustache:
     servlet:

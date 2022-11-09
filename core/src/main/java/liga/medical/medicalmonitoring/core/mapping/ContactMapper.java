@@ -1,7 +1,7 @@
 package liga.medical.medicalmonitoring.core.mapping;
 
 import liga.medical.medicalmonitoring.core.model.Contact;
-import liga.medical.medicalmonitoring.dto.ContactResponse;
+import liga.medical.medicalmonitoring.dto.rest.contact.ContactResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package liga.medical.medicalmonitoring.dto;
+package liga.medical.medicalmonitoring.dto.rest.illness;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

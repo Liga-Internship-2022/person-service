@@ -1,5 +1,6 @@
-package liga.medical.medicalmonitoring.dto;
+package liga.medical.medicalmonitoring.dto.rest.contact;
 
+import liga.medical.medicalmonitoring.dto.rest.address.AddressResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

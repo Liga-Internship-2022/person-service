@@ -1,5 +1,7 @@
-package liga.medical.medicalmonitoring.dto;
+package liga.medical.medicalmonitoring.dto.rest;
 
+import liga.medical.medicalmonitoring.dto.rest.illness.IllnessResponse;
+import liga.medical.medicalmonitoring.dto.rest.medical_card.MedicalCardResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

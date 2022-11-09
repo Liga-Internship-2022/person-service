@@ -1,4 +1,4 @@
-package liga.medical.medicalmonitoring.dto;
+package liga.medical.medicalmonitoring.dto.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicalCardRequestDto {
-    private MedicalCardRequest medicalCard;
-    private List<IllnessRequest> illnesses;
+public class MedicalCardIllnessSoftResponse {
+    private Long medicalCardId;
+    private List<Long> illnessesIds;
 }
