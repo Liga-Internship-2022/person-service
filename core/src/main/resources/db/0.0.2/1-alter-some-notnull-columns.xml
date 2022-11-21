@@ -8,7 +8,7 @@
     <changeSet id="1" author="kainovk">
         <comment>Изменение некоторых столбцов, которые могут быть null</comment>
 
-        <dropNotNullConstraint tableName="contact" columnName="email"/>
-        <dropNotNullConstraint tableName="contact" columnName="profile_link"/>
+        <dropNotNullConstraint tableName="contact" columnName="email" schemaName="clinic"/>
+        <dropNotNullConstraint tableName="contact" columnName="profile_link" schemaName="clinic"/>
     </changeSet>
 </databaseChangeLog>

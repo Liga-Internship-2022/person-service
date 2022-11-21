@@ -8,7 +8,7 @@
     <changeSet id="2" author="kainovk">
         <comment>Создание таблиц для аутентификации</comment>
 
-        <createTable tableName="users">
+        <createTable tableName="users" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -20,7 +20,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="roles">
+        <createTable tableName="roles" schemaName="clinic">
             <column name="id" autoIncrement="true" type="bigserial">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -29,7 +29,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="user_role">
+        <createTable tableName="user_role" schemaName="clinic">
             <column name="user_id" type="bigserial">
                 <constraints nullable="false" references="users(id)" foreignKeyName="fk_userrole_user"/>
             </column>

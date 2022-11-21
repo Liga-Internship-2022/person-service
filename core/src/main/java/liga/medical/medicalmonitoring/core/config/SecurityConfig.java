@@ -18,25 +18,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        String userRole = "USER";
+        String adminRole = "ADMIN";
+        String restMedicalCardRole = "REST_MEDICAL_CARD";
+        String restContactRole = "REST_CONTACT";
+        String restPersonDataRole = "REST_PERSON_DATA";
+
         httpSecurity
+                .httpBasic().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/news").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/admin/**").hasRole(adminRole)
+                .antMatchers("/persons/**").hasRole(adminRole)
+                .antMatchers("/medical-cards/**").hasRole(restMedicalCardRole)
+                .antMatchers("/contacts/**").hasRole(restContactRole)
+                .antMatchers("/person-data/**").hasRole(restPersonDataRole)
+                .antMatchers("/**").hasAnyRole(userRole, adminRole)
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/").permitAll().and()
                 .logout().permitAll()
                 .logoutSuccessUrl("/login");
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

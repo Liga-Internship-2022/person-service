@@ -1,6 +1,6 @@
 package liga.medical.medicalmonitoring.core.service.api;
 
-import liga.medical.medicalmonitoring.dto.UserRequest;
+import liga.medical.medicalmonitoring.dto.auth.UserRequest;
 import liga.medical.medicalmonitoring.dto.auth.UserDto;
 
 import java.util.List;

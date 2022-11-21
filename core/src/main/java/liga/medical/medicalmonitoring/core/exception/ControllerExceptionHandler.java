@@ -12,4 +12,9 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Object> handleApiRequestException(NotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = {AlreadyExistException.class, BadLoginDataException.class})
+    public ResponseEntity<Object> handleApiRequestException(RuntimeException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

@@ -7,7 +7,7 @@ import liga.medical.medicalmonitoring.core.mapping.UserMapper;
 import liga.medical.medicalmonitoring.core.mapping.UserRoleMapper;
 import liga.medical.medicalmonitoring.core.model.User;
 import liga.medical.medicalmonitoring.core.service.api.UserService;
-import liga.medical.medicalmonitoring.dto.UserRequest;
+import liga.medical.medicalmonitoring.dto.auth.UserRequest;
 import liga.medical.medicalmonitoring.dto.auth.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -7,4 +7,5 @@
       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
     <includeAll path="db/0.0.1"/>
     <includeAll path="db/0.0.2"/>
+    <includeAll path="db/0.0.3"/>
 </databaseChangeLog>

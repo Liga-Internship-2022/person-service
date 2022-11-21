@@ -1,7 +1,7 @@
 package liga.medical.medicalmonitoring.api.service;
 
-import liga.medical.medicalmonitoring.dto.ContactRequest;
-import liga.medical.medicalmonitoring.dto.ContactResponse;
+import liga.medical.medicalmonitoring.dto.rest.contact.ContactRequest;
+import liga.medical.medicalmonitoring.dto.rest.contact.ContactResponse;
 
 import java.util.List;
 

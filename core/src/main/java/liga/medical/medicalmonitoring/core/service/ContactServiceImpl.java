@@ -2,8 +2,8 @@ package liga.medical.medicalmonitoring.core.service;
 
 import liga.medical.medicalmonitoring.api.service.ContactService;
 import liga.medical.medicalmonitoring.core.model.Contact;
-import liga.medical.medicalmonitoring.dto.ContactRequest;
-import liga.medical.medicalmonitoring.dto.ContactResponse;
+import liga.medical.medicalmonitoring.dto.rest.contact.ContactRequest;
+import liga.medical.medicalmonitoring.dto.rest.contact.ContactResponse;
 import liga.medical.medicalmonitoring.core.exception.NotFoundException;
 import liga.medical.medicalmonitoring.core.mapping.ContactMapper;
 import lombok.RequiredArgsConstructor;
