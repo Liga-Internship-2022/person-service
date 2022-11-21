@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liga.medical.medicalmonitoring.core.mapping.ContactMapper">
+
+    <select id="save" parameterType="liga.medical.medicalmonitoring.core.model.Contact" resultType="long">
+        INSERT INTO contact (phone_number, email, profile_link)
+        VALUES (#{phoneNumber}, #{email}, #{profileLink}) returning id
+    </select>
+
+    <select id="findById" resultMap="ContactResponseMap">
+        SELECT *
+        FROM contact
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ContactResponseMap">
+        SELECT *
+        FROM contact
+    </select>
+
+    <delete id="deleteById">
+        DELETE
+        FROM contact
+        WHERE id = #{id}
+    </delete>
+
+    <resultMap id="ContactResponseMap" type="liga.medical.medicalmonitoring.dto.rest.contact.ContactResponse">
+        <id property="id" column="id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="email" column="email"/>
+        <result property="profileLink" column="profile_link"/>
+    </resultMap>
+</mapper>

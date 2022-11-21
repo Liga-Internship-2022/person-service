@@ -1,0 +1,29 @@
+server:
+  port: 8093
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=clinic
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  liquibase:
+    change-log: classpath:/db/changelog.xml
+    enabled: true
+    default-schema: clinic
+  sql:
+    init:
+      data-locations: classpath:init/data.sql
+      mode: always
+  mustache:
+    servlet:
+      expose-request-attributes: true
+
+mybatis:
+  mapper-locations: classpath*:mappings/*.xml
+
+logging:
+  file:
+    name: ../common-module/medical.log

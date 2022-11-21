@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+    <changeSet id="2" author="kainovk">
+        <comment>Создание таблиц для аутентификации</comment>
+
+        <createTable tableName="users" schemaName="clinic">
+            <column name="id" autoIncrement="true" type="bigserial">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="roles" schemaName="clinic">
+            <column name="id" autoIncrement="true" type="bigserial">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="user_role" schemaName="clinic">
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false" references="users(id)" foreignKeyName="fk_userrole_user"/>
+            </column>
+            <column name="role_id" type="bigserial">
+                <constraints nullable="false" references="roles(id)" foreignKeyName="fk_userrole_role"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liga.medical.medicalmonitoring.core.mapping.RoleMapper">
+
+    <insert id="save">
+        INSERT INTO roles (role)
+        VALUES (#{name})
+    </insert>
+
+    <select id="findById" resultMap="RoleResultMap">
+        SELECT *
+        FROM roles r
+        WHERE r.id = #{id}
+    </select>
+
+    <select id="findByName" resultMap="RoleResultMap">
+        SELECT *
+        FROM roles r
+        WHERE r.role = #{name}
+    </select>
+
+    <select id="findAll" resultMap="RoleResultMap">
+        SELECT *
+        FROM roles
+    </select>
+
+    <delete id="deleteById">
+        DELETE
+        FROM roles r
+        WHERE 1 = 1
+          AND r.id = #{id}
+    </delete>
+
+    <resultMap id="RoleResultMap" type="liga.medical.medicalmonitoring.core.model.Role">
+        <id property="id" column="id"/>
+        <result property="name" column="role"/>
+    </resultMap>
+</mapper>

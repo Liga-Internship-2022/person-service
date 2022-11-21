@@ -1,0 +1,1 @@
+[Коллекция запросов Postman для тестирования](https://www.postman.com/science-astronaut-66180740/workspace/b2b59263-ef56-4601-9f87-dbe9f688c3cd/)
